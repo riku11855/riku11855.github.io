@@ -75,3 +75,14 @@ document.querySelectorAll('.video-btn').forEach((btn) => {
 modal?.querySelector('.video-close').addEventListener('click', () => modal.close());
 modal?.addEventListener('click', (e) => { if (e.target === modal) modal.close(); });
 modal?.addEventListener('close', () => frame.replaceChildren());
+
+// 빌드 다운로드 주소가 없으면 준비 중으로 표시합니다.
+document.querySelectorAll('.build-btn').forEach((a) => {
+  if (a.dataset.href) {
+    a.href = a.dataset.href;
+  } else {
+    a.classList.add('is-pending');
+    a.setAttribute('aria-disabled', 'true');
+    a.textContent = '빌드 준비 중';
+  }
+});

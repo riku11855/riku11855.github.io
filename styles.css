@@ -157,6 +157,7 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--point); outline
 /* video */
 .video-btn:disabled { color: var(--quiet); border-style: dashed; cursor: default; }
 .video-btn:disabled:hover { border-color: var(--line); }
+.build-btn.is-pending { color: var(--quiet); border-style: dashed; pointer-events: none; }
 .video-modal { width: min(1100px, calc(100% - 32px)); padding: 0; border: 1px solid var(--line); background: var(--bg); color: var(--text); }
 .video-modal::backdrop { background: rgba(8, 10, 12, .85); }
 .video-frame { aspect-ratio: 16 / 9; background: #000; }
