@@ -6,7 +6,7 @@
 <title>레벨 디자이너 곽태우</title>
 <link rel="stylesheet" href="styles.css">
 </head>
-<body>
+<body class="lay-e" data-steps="s2">
 
 <header class="site-header">
   <div class="wrap header-inner">
@@ -65,17 +65,18 @@
         <figure class="slot cover"><img src="assets/images/moon-cover.webp" alt="월하일검 키 비주얼" loading="lazy"></figure>
       </div>
       <div class="work-body">
-        <p class="meta">01 / 팀 프로젝트 · 잠입 액션 · G-Star 2026 전시 예정</p>
+        <div class="wb-intro">
+        <p class="meta">01 / 팀 프로젝트 · 잠입 액션</p>
         <h3>월하일검</h3>
-        <p class="summary">잠입과 정면 돌파가 모두 되는 1챕터를 설계하고, 엔진에서 직접 만들었습니다.</p>
+        <p class="summary">싸울지 피할지, 매 순간 플레이어가 고르는 검술 액션 게임입니다.</p>
+        </div>
         <dl class="scope">
-          <dt>담당 범위</dt>
-          <dd>레벨 기획 · 몬스터 배치 · 그래픽 세팅</dd>
-          <dt>엔진 · 개발 기간</dt>
-          <dd>Unreal Engine 5 · 2026.03 ~ 2026.11</dd>
+          <div><dt>담당 범위</dt><dd>레벨 기획 · 몬스터 배치 · 그래픽 세팅</dd></div>
+          <div><dt>엔진 · 개발 기간</dt><dd>Unreal Engine 5 · 2026.03 ~ 2026.11</dd></div>
+          <div><dt>전시</dt><dd>G-Star 2026 전시 예정</dd></div>
         </dl>
         <div class="actions">
-          <button type="button" class="btn video-btn" data-youtube="MVOr8xTqBFc" data-title="월하일검 플레이 영상">플레이 영상 보기</button>
+          <button type="button" class="btn primary video-btn" data-youtube="MVOr8xTqBFc" data-title="월하일검 플레이 영상">플레이 영상 보기</button>
           <a class="btn build-btn" data-href="https://drive.google.com/file/d/1o_OPRN2C9SgvaPdhZPAcjpkVYK0TtX_G/view?usp=sharing" target="_blank" rel="noopener">빌드 다운로드</a>
         </div>
       </div>
@@ -86,38 +87,39 @@
       </ol>
       <div class="steps">
         <div class="step-tabs" role="group" aria-label="월하일검 작업 과정">
-          <button type="button" class="step-btn" aria-expanded="true" aria-controls="moon-1" id="moon-1-btn"><span class="n">01</span>문제<i aria-hidden="true"></i></button>
-          <button type="button" class="step-btn" aria-expanded="false" aria-controls="moon-2" id="moon-2-btn"><span class="n">02</span>해결<i aria-hidden="true"></i></button>
-          <button type="button" class="step-btn" aria-expanded="false" aria-controls="moon-3" id="moon-3-btn"><span class="n">03</span>발전<i aria-hidden="true"></i></button>
+          <button type="button" class="step-btn" aria-expanded="true" aria-controls="moon-1" id="moon-1-btn"><span class="n">01</span><span class="lb">문제</span><span class="pv">기준 없이 어긋난 난이도</span><i aria-hidden="true"></i></button>
+          <button type="button" class="step-btn" aria-expanded="false" aria-controls="moon-2" id="moon-2-btn"><span class="n">02</span><span class="lb">해결</span><span class="pv">시야 기준을 한 문장으로</span><i aria-hidden="true"></i></button>
+          <button type="button" class="step-btn" aria-expanded="false" aria-controls="moon-3" id="moon-3-btn"><span class="n">03</span><span class="lb">발전</span><span class="pv">근거가 있는 수치</span><i aria-hidden="true"></i></button>
         </div>
         <div class="step-panel" id="moon-1" role="region" aria-labelledby="moon-1-btn">
-          <p>여러 적이 모여도 1대 1 대결이 이어져야 했습니다.<br>그런데 시야를 구역마다 따로 정해, 한 구역을 고치면 다른 구역의 난이도가 어긋났습니다.</p>
+          <p><strong>기준 없이 어긋난 난이도</strong><br>1대1 대결이 이어지려면 적이 알아채는 시점이 일정해야 했지만, 구역마다 기준이 달랐습니다.</p>
         </div>
         <div class="step-panel" id="moon-2" role="region" aria-labelledby="moon-2-btn" hidden>
-          <p><strong>"닿기 전에 알아채는가"</strong><br>정면으로 다가오는 플레이어를 기준으로, 모든 구역의 시야 수치를 맞췄습니다.</p>
+          <p><strong>시야 기준을 한 문장으로</strong><br>적이 알아채는 시점을 한 문장으로 정하고, 모든 구역의 시야를 이 문장에 맞췄습니다.</p>
         </div>
         <div class="step-panel" id="moon-3" role="region" aria-labelledby="moon-3-btn" hidden>
-          <p><strong>구역을 고쳐도 난이도가 어긋나지 않게 됐습니다.</strong><br>수치를 바꿀 때마다 기준과 비교해, 팀에 이유를 바로 설명합니다.</p>
+          <p><strong>근거가 있는 수치</strong><br>기준 한 문장이 팀의 공통 언어가 되어, 수치를 바꿀 때 근거를 바로 공유합니다.</p>
         </div>
       </div>
     </article>
 
     <article class="work reveal" data-work>
       <div class="gallery solo">
-        <figure class="slot cover"><img src="assets/images/leo-cover.webp" alt="RollingLeo 타이틀 화면" loading="lazy"></figure>
+        <figure class="slot cover"><img src="assets/images/leo-cover-crop.webp" alt="RollingLeo 타이틀 화면" loading="lazy"></figure>
       </div>
       <div class="work-body">
-        <p class="meta">02 / 팀 프로젝트 · 퍼즐 액션 · G-Star 2025 전시</p>
+        <div class="wb-intro">
+        <p class="meta">02 / 팀 프로젝트 · 퍼즐 액션</p>
         <h3>RollingLeo</h3>
-        <p class="summary">웨이브와 몬스터를 배치하고, 플레이 테스트로 밸런스를 맞췄습니다.</p>
+        <p class="summary">적이 한 줄로 늘어서는 순간을 노려, 한 번의 움직임으로 여러 적을 쓰러뜨리는 퍼즐 액션 게임입니다.</p>
+        </div>
         <dl class="scope">
-          <dt>담당 범위</dt>
-          <dd>웨이브 구성 · 몬스터 설정 · 밸런싱</dd>
-          <dt>엔진 · 개발 기간</dt>
-          <dd>Unity · 2025.03 ~ 2025.11</dd>
+          <div><dt>담당 범위</dt><dd>웨이브 구성 · 몬스터 설정 · 밸런싱</dd></div>
+          <div><dt>엔진 · 개발 기간</dt><dd>Unity · 2025.03 ~ 2025.11</dd></div>
+          <div><dt>전시</dt><dd>G-Star 2025 전시</dd></div>
         </dl>
         <div class="actions">
-          <button type="button" class="btn video-btn" data-youtube="5NVwIerlEGE" data-title="RollingLeo 플레이 영상">플레이 영상 보기</button>
+          <button type="button" class="btn primary video-btn" data-youtube="5NVwIerlEGE" data-title="RollingLeo 플레이 영상">플레이 영상 보기</button>
           <a class="btn build-btn" data-href="https://drive.google.com/file/d/1zt6HZoKYjEaUZJbFg0EOS8w3G-EFuN_6/view?usp=sharing" target="_blank" rel="noopener">빌드 다운로드</a>
         </div>
       </div>
@@ -128,18 +130,18 @@
       </ol>
       <div class="steps">
         <div class="step-tabs" role="group" aria-label="RollingLeo 작업 과정">
-          <button type="button" class="step-btn" aria-expanded="true" aria-controls="leo-1" id="leo-1-btn"><span class="n">01</span>문제<i aria-hidden="true"></i></button>
-          <button type="button" class="step-btn" aria-expanded="false" aria-controls="leo-2" id="leo-2-btn"><span class="n">02</span>해결<i aria-hidden="true"></i></button>
-          <button type="button" class="step-btn" aria-expanded="false" aria-controls="leo-3" id="leo-3-btn"><span class="n">03</span>발전<i aria-hidden="true"></i></button>
+          <button type="button" class="step-btn" aria-expanded="true" aria-controls="leo-1" id="leo-1-btn"><span class="n">01</span><span class="lb">문제</span><span class="pv">만든 사람만 피할 수 있는 공격</span><i aria-hidden="true"></i></button>
+          <button type="button" class="step-btn" aria-expanded="false" aria-controls="leo-2" id="leo-2-btn"><span class="n">02</span><span class="lb">해결</span><span class="pv">기준은 처음 하는 사람</span><i aria-hidden="true"></i></button>
+          <button type="button" class="step-btn" aria-expanded="false" aria-controls="leo-3" id="leo-3-btn"><span class="n">03</span><span class="lb">발전</span><span class="pv">피하는 동작이 리듬이 되다</span><i aria-hidden="true"></i></button>
         </div>
         <div class="step-panel" id="leo-1" role="region" aria-labelledby="leo-1-btn">
-          <p>처음 하는 사람도 공격을 보고 피할 수 있어야 했습니다.<br>그런데 전조 시간이 익숙한 사람 기준이라, 처음 하는 사람은 거의 피하지 못했습니다.</p>
+          <p><strong>만든 사람만 피할 수 있는 공격</strong><br>처음 플레이하는 사람도 보고 피할 수 있어야 했지만, 전조 시간이 숙련자 기준으로 맞춰져 있었습니다.</p>
         </div>
         <div class="step-panel" id="leo-2" role="region" aria-labelledby="leo-2-btn" hidden>
-          <p><strong>"처음 보고도 피할 수 있는가"</strong><br>이 기준으로 반복 테스트해 전조 시간을 두 배로 늘렸습니다.</p>
+          <p><strong>기준은 처음 하는 사람</strong><br>이 기준으로 반복 테스트해 전조 시간을 두 배로 늘렸습니다.</p>
         </div>
         <div class="step-panel" id="leo-3" role="region" aria-labelledby="leo-3-btn" hidden>
-          <p><strong>피하는 동작이 리듬처럼 이어지는 난이도가 됐습니다.</strong><br>보스 구간도 일반 구간에서 배운 움직임으로 깨도록 맞췄습니다.</p>
+          <p><strong>피하는 동작이 리듬이 되다</strong><br>피하는 동작이 리듬처럼 이어진다는 피드백을 받았고, 보스는 앞에서 배운 움직임으로 깨도록 맞췄습니다.</p>
         </div>
       </div>
     </article>
@@ -170,10 +172,10 @@
       </div>
     </div>
     <div class="skill-grid reveal">
-      <article class="skill"><h3>시선 유도</h3><p class="lead">갈 길을 설명 없이 보여줍니다.</p><ul><li>향광성 · 향개방성</li><li>랜드마크 · 최종 목적지 노출</li><li>설명 없는 학습 구간</li></ul></article>
-      <article class="skill"><h3>배치 · 전술</h3><p class="lead">구역마다 다른 판단을 요구합니다.</p><ul><li>몬스터 배치 · 순찰 경로</li><li>시야 · 발각 기준</li><li>기습 · 증원</li></ul></article>
-      <article class="skill"><h3>완급 · 긴장도</h3><p class="lead">긴장과 환기를 번갈아 줍니다.</p><ul><li>구역별 긴장도 설계</li><li>공간 · 전투 양상 전환</li><li>환경 기믹</li></ul></article>
-      <article class="skill"><h3>구조 · 구현</h3><p class="lead">공간을 잇고, 직접 짓습니다.</p><ul><li>유기적 연결 · 숏컷 · 뷰포인트</li><li>규격화 더미맵</li><li>라이트 · 포스트프로세스</li></ul></article>
+      <article class="skill"><p class="tag">01</p><h3>시선 유도</h3><p class="lead">갈 길을 설명 없이 보여줍니다.</p><ul><li>향광성 · 향개방성</li><li>랜드마크 · 최종 목적지 노출</li><li>설명 없는 학습 구간</li></ul></article>
+      <article class="skill"><p class="tag">02</p><h3>배치 · 전술</h3><p class="lead">구역마다 다른 판단을 요구합니다.</p><ul><li>몬스터 배치 · 순찰 경로</li><li>시야 · 발각 기준</li><li>기습 · 증원</li></ul></article>
+      <article class="skill"><p class="tag">03</p><h3>완급 · 긴장도</h3><p class="lead">긴장과 환기를 번갈아 줍니다.</p><ul><li>구역별 긴장도 설계</li><li>공간 · 전투 양상 전환</li><li>환경 기믹</li></ul></article>
+      <article class="skill"><p class="tag">04</p><h3>구조 · 구현</h3><p class="lead">공간을 잇고, 직접 짓습니다.</p><ul><li>유기적 연결 · 숏컷 · 뷰포인트</li><li>규격화 더미맵</li><li>라이트 · 포스트프로세스</li></ul></article>
     </div>
   </section>
 
