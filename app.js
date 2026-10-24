@@ -86,3 +86,50 @@ document.querySelectorAll('.build-btn').forEach((a) => {
     a.textContent = '빌드 준비 중';
   }
 });
+
+// ===== 스크롤 효과 =====
+const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+// 1. 지금 보는 섹션을 메뉴에서 강조합니다.
+const navLinks = [...document.querySelectorAll('.site-header nav a[href^="#"]')];
+const navTargets = navLinks.map((a) => document.querySelector(a.getAttribute('href'))).filter(Boolean);
+function markCurrentNav() {
+  const line = window.innerHeight * 0.35;
+  let current = null;
+  navTargets.forEach((sec) => { if (sec.getBoundingClientRect().top <= line) current = sec; });
+  if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4) current = navTargets[navTargets.length - 1];
+  navLinks.forEach((a) => a.classList.toggle('is-current', !!current && a.getAttribute('href') === '#' + current.id));
+}
+
+// 2. 표지 이미지는 글보다 느리게 움직이고, 내려갈수록 어두워집니다.
+const hero = document.querySelector('.hero');
+const heroImg = hero?.querySelector('.hero-slot img');
+function moveHero() {
+  if (!hero || !heroImg || reduceMotion) return;
+  const h = hero.offsetHeight || 1;
+  const y = Math.min(Math.max(window.scrollY, 0), h);
+  heroImg.style.transform = `translateY(${y * 0.3}px) scale(1.06)`;
+  hero.style.setProperty('--hero-dim', (y / h * 0.6).toFixed(3));
+}
+
+// 4. 이력 선이 스크롤을 따라 채워지고, 지나간 항목이 켜집니다.
+const timeline = document.querySelector('.timeline');
+const timelineItems = timeline ? [...timeline.querySelectorAll('li')] : [];
+function fillTimeline() {
+  if (!timeline) return;
+  const r = timeline.getBoundingClientRect();
+  const line = window.innerHeight * 0.7;
+  const p = Math.min(Math.max((line - r.top) / (r.height || 1), 0), 1);
+  timeline.style.setProperty('--fill', p.toFixed(3));
+  timelineItems.forEach((li) => li.classList.toggle('on', li.getBoundingClientRect().top + 12 <= line));
+}
+
+let ticking = false;
+function onScroll() {
+  if (ticking) return;
+  ticking = true;
+  requestAnimationFrame(() => { markCurrentNav(); moveHero(); fillTimeline(); ticking = false; });
+}
+window.addEventListener('scroll', onScroll, { passive: true });
+window.addEventListener('resize', onScroll);
+onScroll();

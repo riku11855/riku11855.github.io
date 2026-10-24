@@ -852,3 +852,36 @@ html, body { overflow-x: clip; }
   [data-hero="h6"] .hero-picks { align-self: end; margin: 0 0 64px; }
   [data-hero="h5"] .hero { min-height: max(760px, min(86vh, 860px)); }
 }
+
+/* ===== 스크롤 효과 ===== */
+/* 1. 메뉴 강조 */
+.site-header nav a { position: relative; }
+.site-header nav a.is-current { color: var(--point); }
+.site-header nav a.is-current::after { content: ""; position: absolute; left: 0; right: 0; bottom: -6px; height: 2px; background: var(--point); }
+
+/* 2. 표지 패럴랙스 */
+.hero-slot { overflow: hidden; }
+.hero-slot img { will-change: transform; transform: scale(1.06); }
+.hero-slot::before { content: ""; position: absolute; inset: 0; z-index: 1; background: #0e1013; opacity: var(--hero-dim, 0); pointer-events: none; }
+
+/* 3. 순차 등장: 과정 이미지 · 협업 · 역량 카드 */
+.reveal .process li, .collab.reveal > li, .skill-grid.reveal > .skill { opacity: 0; transform: translateY(16px); transition: opacity .6s ease, transform .6s ease; }
+.reveal.in .process li, .collab.reveal.in > li, .skill-grid.reveal.in > .skill { opacity: 1; transform: none; }
+.reveal.in .process li:nth-child(1), .collab.reveal.in > li:nth-child(1), .skill-grid.reveal.in > .skill:nth-child(1) { transition-delay: .15s; }
+.reveal.in .process li:nth-child(2), .collab.reveal.in > li:nth-child(2), .skill-grid.reveal.in > .skill:nth-child(2) { transition-delay: .3s; }
+.reveal.in .process li:nth-child(3), .collab.reveal.in > li:nth-child(3), .skill-grid.reveal.in > .skill:nth-child(3) { transition-delay: .45s; }
+.collab.reveal.in > li:nth-child(4), .skill-grid.reveal.in > .skill:nth-child(4) { transition-delay: .6s; }
+
+/* 4. 이력 타임라인 채우기 */
+.timeline { position: relative; padding-left: 28px; }
+.timeline::before, .timeline::after { content: ""; position: absolute; left: 5px; top: 32px; width: 2px; }
+.timeline::before { bottom: 0; background: var(--line); }
+.timeline::after { height: calc((100% - 32px) * var(--fill, 0)); background: var(--point); transition: height .1s linear; }
+.timeline li { position: relative; }
+.timeline li::before { content: ""; position: absolute; left: -28px; top: 50%; width: 12px; height: 12px; margin-top: -6px; border-radius: 50%; background: var(--bg); border: 2px solid var(--line); transition: background .3s, border-color .3s; z-index: 1; }
+.timeline li.on::before { background: var(--point); border-color: var(--point); }
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal .process li, .collab.reveal > li, .skill-grid.reveal > .skill { opacity: 1; transform: none; transition: none; }
+  .hero-slot img { transform: none; }
+}
