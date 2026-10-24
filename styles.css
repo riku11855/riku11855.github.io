@@ -725,3 +725,17 @@ html, body { overflow-x: clip; }
 }
 /* 정보 3칸: 마지막 칸도 같은 윗선·여백 */
 .lay-e .work > .scope > div, .lay-e .work > .scope > div:last-child { margin: 0; padding: 14px 0 0; border: 0; border-top: 1px solid var(--line); }
+
+/* 오른쪽 설명 2문단: 공간이 될 때만 보이기 */
+.lay-e .work .summary.more { display: block; margin-top: 12px; font-size: 15px; color: var(--muted); }
+
+/* 중간 폭(961~1199px): 표지를 3칸 전체로, 설명은 그 아래 전체 폭 — 숨기는 문단 없음 */
+@media (min-width: 961px) and (max-width: 1199px) {
+  .lay-e .work .gallery { grid-column: 1 / -1; grid-row: 1; }
+  .lay-e .work .work-body, .lay-e .solo-work .work-body { grid-column: 1 / -1; grid-row: 2; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: var(--gap); align-items: end; }
+  .lay-e .work .wb-intro { grid-column: 1 / 3; }
+  .lay-e .work .actions, .lay-e .solo-work .actions { grid-column: 3; margin-top: 0; grid-template-columns: minmax(0, 1fr); }
+  .lay-e .work > .scope, .lay-e .solo-work > .scope { grid-row: 3; }
+  .lay-e .work .process, .lay-e .solo-work .process { grid-row: 4; }
+  .lay-e .work .steps { grid-row: 5; }
+}
