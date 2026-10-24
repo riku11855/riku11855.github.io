@@ -748,3 +748,107 @@ html, body { overflow-x: clip; }
   .lay-e .work .actions, .lay-e .solo-work .actions { grid-column: 1 / -1; grid-row: 2; grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: var(--gap); gap: var(--gap); margin-top: 0; }
   .lay-e .solo-work .actions .btn.primary { grid-column: 1; }
 }
+
+/* ===== 표지 시안 ===== */
+.hero-picks { display: none; }
+
+/* 공통: 이미지 위에 문구 겹치기 */
+[data-hero="h1"] .hero, [data-hero="h2"] .hero, [data-hero="h3"] .hero { position: relative; display: grid; grid-template-columns: minmax(0, 1fr); padding: 0; gap: 0; min-height: min(86vh, 860px); }
+[data-hero="h1"] .hero-slot, [data-hero="h2"] .hero-slot, [data-hero="h3"] .hero-slot { grid-area: 1 / 1; position: relative; width: 100vw; margin-left: calc(50% - 50vw); height: 100%; aspect-ratio: auto !important; border: 0; z-index: 0; }
+[data-hero="h1"] .hero-slot img, [data-hero="h2"] .hero-slot img, [data-hero="h3"] .hero-slot img { width: 100%; height: 100%; object-fit: cover; }
+[data-hero="h1"] .hero-slot::after, [data-hero="h2"] .hero-slot::after, [data-hero="h3"] .hero-slot::after { content: ""; position: absolute; inset: 0; pointer-events: none; }
+[data-hero="h1"] .hero-text, [data-hero="h2"] .hero-text, [data-hero="h3"] .hero-text { grid-area: 1 / 1; position: relative; z-index: 1; }
+
+/* h1: 아래쪽 — 제목 왼쪽, 이름·소개 오른쪽 */
+[data-hero="h1"] .hero-slot::after { background: linear-gradient(to top, var(--bg) 0%, rgba(14,16,19,.85) 28%, rgba(14,16,19,.2) 62%, rgba(14,16,19,.35) 100%); }
+[data-hero="h1"] .hero-text { align-self: end; padding: 0 0 64px; }
+
+/* h2 · h3: 왼쪽 — 한 줄로 쌓기 */
+[data-hero="h2"] .hero-slot::after, [data-hero="h3"] .hero-slot::after { background: linear-gradient(to right, rgba(14,16,19,.95) 0%, rgba(14,16,19,.75) 34%, rgba(14,16,19,.1) 70%), linear-gradient(to top, var(--bg) 0%, transparent 22%); }
+[data-hero="h2"] .hero-text, [data-hero="h3"] .hero-text { align-self: center; display: block; max-width: 560px; padding: 64px 0; }
+[data-hero="h2"] .hero-text .hero-name, [data-hero="h3"] .hero-text .hero-name { margin-top: 28px; }
+[data-hero="h2"] .hero-text .hero-intro, [data-hero="h3"] .hero-text .hero-intro { margin: 16px 0 32px; }
+
+/* h3: 오른쪽 아래 프로젝트 카드 2장 */
+[data-hero="h3"] .hero-picks { grid-area: 1 / 1; z-index: 1; align-self: end; justify-self: end; display: grid; grid-template-columns: repeat(2, 240px); gap: var(--gap); margin-bottom: 48px; }
+[data-hero="h3"] .hero-picks a { display: block; background: rgba(14,16,19,.8); border: 1px solid var(--line); transition: border-color .2s; }
+[data-hero="h3"] .hero-picks a:hover { border-color: var(--point); }
+[data-hero="h3"] .hero-picks img { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; }
+[data-hero="h3"] .hero-picks span { display: block; padding: 10px 14px 12px; font-size: 13px; color: var(--muted); }
+[data-hero="h3"] .hero-picks b { display: block; font-size: 16px; color: var(--text); font-weight: 650; }
+
+@media (max-width: 960px) {
+  [data-hero="h1"] .hero, [data-hero="h2"] .hero, [data-hero="h3"] .hero { min-height: 0; }
+  [data-hero="h1"] .hero-slot, [data-hero="h2"] .hero-slot, [data-hero="h3"] .hero-slot { grid-area: 1 / 1; height: auto; aspect-ratio: 16 / 10 !important; }
+  [data-hero="h1"] .hero-text, [data-hero="h2"] .hero-text, [data-hero="h3"] .hero-text { grid-area: 2 / 1; padding: 24px 0 48px; max-width: none; }
+  [data-hero="h1"] .hero-slot::after, [data-hero="h2"] .hero-slot::after, [data-hero="h3"] .hero-slot::after { background: linear-gradient(to top, var(--bg) 0%, transparent 40%); }
+  [data-hero="h3"] .hero-picks { grid-area: 3 / 1; justify-self: stretch; grid-template-columns: repeat(2, minmax(0, 1fr)); margin: 0 0 48px; }
+}
+
+/* ===== 표지 시안 4~7: 왼쪽 문구 + 프로젝트 카드 ===== */
+.hero-picks i { display: none; font-style: normal; }
+[data-hero="h4"] .hero, [data-hero="h5"] .hero, [data-hero="h6"] .hero, [data-hero="h7"] .hero { position: relative; display: grid; grid-template-columns: minmax(0, 1fr); padding: 0; gap: 0; min-height: min(86vh, 860px); }
+[data-hero="h4"] .hero-slot, [data-hero="h5"] .hero-slot, [data-hero="h6"] .hero-slot, [data-hero="h7"] .hero-slot { grid-area: 1 / 1; position: relative; width: 100vw; margin-left: calc(50% - 50vw); height: 100%; aspect-ratio: auto !important; border: 0; z-index: 0; }
+[data-hero="h4"] .hero-slot img, [data-hero="h5"] .hero-slot img, [data-hero="h6"] .hero-slot img, [data-hero="h7"] .hero-slot img { width: 100%; height: 100%; object-fit: cover; }
+[data-hero="h4"] .hero-slot::after, [data-hero="h5"] .hero-slot::after, [data-hero="h6"] .hero-slot::after, [data-hero="h7"] .hero-slot::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(to right, rgba(14,16,19,.95) 0%, rgba(14,16,19,.75) 34%, rgba(14,16,19,.1) 70%), linear-gradient(to top, var(--bg) 0%, transparent 22%); }
+[data-hero="h4"] .hero-text, [data-hero="h5"] .hero-text, [data-hero="h6"] .hero-text, [data-hero="h7"] .hero-text { grid-area: 1 / 1; position: relative; z-index: 1; align-self: center; display: block; max-width: 560px; padding: 64px 0; }
+[data-hero="h4"] .hero-text .hero-name, [data-hero="h5"] .hero-text .hero-name, [data-hero="h6"] .hero-text .hero-name, [data-hero="h7"] .hero-text .hero-name { margin-top: 28px; }
+[data-hero="h4"] .hero-text .hero-intro, [data-hero="h5"] .hero-text .hero-intro, [data-hero="h6"] .hero-text .hero-intro, [data-hero="h7"] .hero-text .hero-intro { margin: 16px 0 32px; }
+[data-hero="h4"] .hero-picks, [data-hero="h5"] .hero-picks, [data-hero="h6"] .hero-picks, [data-hero="h7"] .hero-picks { grid-area: 1 / 1; z-index: 1; display: grid; gap: var(--gap); }
+[data-hero] .hero-picks a { display: block; transition: border-color .2s, transform .2s; }
+[data-hero] .hero-picks img { display: block; width: 100%; object-fit: cover; }
+[data-hero] .hero-picks b { display: block; color: var(--text); font-weight: 650; }
+
+/* h4: 오른쪽 가운데, 카드 세로 2장 (이미지 왼쪽 + 글 오른쪽) */
+[data-hero="h4"] .hero-picks { align-self: center; justify-self: end; width: 380px; }
+[data-hero="h4"] .hero-picks a { display: grid; grid-template-columns: 150px minmax(0, 1fr); align-items: center; background: rgba(14,16,19,.82); border: 1px solid var(--line); }
+[data-hero="h4"] .hero-picks a:hover { border-color: var(--point); }
+[data-hero="h4"] .hero-picks img { aspect-ratio: 16 / 10; }
+[data-hero="h4"] .hero-picks span { padding: 12px 16px; font-size: 13px; color: var(--muted); }
+[data-hero="h4"] .hero-picks b { font-size: 18px; margin-bottom: 2px; }
+[data-hero="h4"] .hero-picks i { display: block; color: var(--quiet); font-size: 12px; margin-bottom: 4px; }
+
+/* h5: 아래 띠 — 표지 맨 아래에 카드 2장이 가로로 길게, 왼쪽 문구 위쪽 */
+[data-hero="h5"] .hero-text { align-self: start; padding-top: 96px; }
+[data-hero="h5"] .hero-picks { align-self: end; grid-template-columns: repeat(2, minmax(0, 1fr)); margin-bottom: 40px; }
+[data-hero="h5"] .hero-picks a { display: grid; grid-template-columns: 44% minmax(0, 1fr); align-items: center; background: rgba(14,16,19,.82); border: 1px solid var(--line); border-top: 2px solid var(--point); }
+[data-hero="h5"] .hero-picks a:hover { background: rgba(14,16,19,.95); }
+[data-hero="h5"] .hero-picks img { aspect-ratio: 16 / 9; }
+[data-hero="h5"] .hero-picks span { padding: 14px 20px; font-size: 14px; color: var(--muted); }
+[data-hero="h5"] .hero-picks b { font-size: 22px; margin-bottom: 4px; }
+[data-hero="h5"] .hero-picks i { display: block; color: var(--quiet); font-size: 13px; margin-bottom: 6px; }
+
+/* h6: 버튼 바로 밑에 작은 카드 2장 (문구와 한 덩어리) */
+[data-hero="h6"] .hero-text { align-self: center; padding-bottom: 210px; }
+[data-hero="h6"] .hero-picks { align-self: center; justify-self: start; grid-template-columns: repeat(2, 220px); margin-top: 300px; }
+[data-hero="h6"] .hero-picks a { background: rgba(14,16,19,.82); border: 1px solid var(--line); }
+[data-hero="h6"] .hero-picks a:hover { border-color: var(--point); }
+[data-hero="h6"] .hero-picks img { aspect-ratio: 16 / 9; }
+[data-hero="h6"] .hero-picks span { display: block; padding: 10px 14px 12px; font-size: 13px; color: var(--muted); }
+[data-hero="h6"] .hero-picks b { font-size: 16px; }
+
+/* h7: 오른쪽 큰 카드 2장, 글은 이미지 위에 겹침 */
+[data-hero="h7"] .hero-picks { align-self: center; justify-self: end; grid-template-columns: repeat(2, 260px); }
+[data-hero="h7"] .hero-picks a { position: relative; border: 1px solid var(--line); overflow: hidden; }
+[data-hero="h7"] .hero-picks a:hover { border-color: var(--point); transform: translateY(-4px); }
+[data-hero="h7"] .hero-picks img { aspect-ratio: 3 / 4; }
+[data-hero="h7"] .hero-picks span { position: absolute; left: 0; right: 0; bottom: 0; padding: 48px 16px 16px; background: linear-gradient(to top, rgba(14,16,19,.95), transparent); font-size: 13px; color: var(--muted); }
+[data-hero="h7"] .hero-picks b { font-size: 20px; }
+[data-hero="h7"] .hero-picks i { display: block; color: var(--muted); font-size: 12px; margin: 2px 0 6px; }
+
+@media (max-width: 1180px) { [data-hero="h4"] .hero-picks { width: 320px; } [data-hero="h7"] .hero-picks { grid-template-columns: repeat(2, 200px); } }
+@media (max-width: 960px) {
+  [data-hero="h4"] .hero, [data-hero="h5"] .hero, [data-hero="h6"] .hero, [data-hero="h7"] .hero { min-height: 0; }
+  [data-hero="h4"] .hero-slot, [data-hero="h5"] .hero-slot, [data-hero="h6"] .hero-slot, [data-hero="h7"] .hero-slot { height: auto; aspect-ratio: 16 / 10 !important; }
+  [data-hero="h4"] .hero-slot::after, [data-hero="h5"] .hero-slot::after, [data-hero="h6"] .hero-slot::after, [data-hero="h7"] .hero-slot::after { background: linear-gradient(to top, var(--bg) 0%, transparent 40%); }
+  [data-hero="h4"] .hero-text, [data-hero="h5"] .hero-text, [data-hero="h6"] .hero-text, [data-hero="h7"] .hero-text { grid-area: 2 / 1; padding: 24px 0 32px; max-width: none; }
+  [data-hero="h4"] .hero-picks, [data-hero="h5"] .hero-picks, [data-hero="h6"] .hero-picks, [data-hero="h7"] .hero-picks { grid-area: 3 / 1; justify-self: stretch; width: auto; margin: 0 0 48px; grid-template-columns: minmax(0, 1fr); }
+  [data-hero="h6"] .hero-picks, [data-hero="h7"] .hero-picks { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  [data-hero="h4"] .hero-picks a { grid-template-columns: 120px minmax(0, 1fr); }
+}
+@media (min-width: 961px) {
+  [data-hero="h6"] .hero { min-height: max(760px, min(86vh, 860px)); }
+  [data-hero="h6"] .hero-text { align-self: start; padding: 112px 0 0; }
+  [data-hero="h6"] .hero-picks { align-self: end; margin: 0 0 64px; }
+  [data-hero="h5"] .hero { min-height: max(760px, min(86vh, 860px)); }
+}
