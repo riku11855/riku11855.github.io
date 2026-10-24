@@ -739,3 +739,12 @@ html, body { overflow-x: clip; }
   .lay-e .work .process, .lay-e .solo-work .process { grid-row: 4; }
   .lay-e .work .steps { grid-row: 5; }
 }
+
+/* 중간 폭(961~1199px) 정리: 설명은 3칸 전체, 버튼은 그 아래 1칸씩 (아래 정보·이미지 칸과 같은 선) */
+@media (min-width: 961px) and (max-width: 1199px) {
+  .lay-e .work .work-body, .lay-e .solo-work .work-body { row-gap: var(--gap); align-items: start; }
+  .lay-e .work .wb-intro { grid-column: 1 / -1; grid-row: 1; }
+  .lay-e .work .summary { max-width: 760px; }
+  .lay-e .work .actions, .lay-e .solo-work .actions { grid-column: 1 / -1; grid-row: 2; grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: var(--gap); gap: var(--gap); margin-top: 0; }
+  .lay-e .solo-work .actions .btn.primary { grid-column: 1; }
+}
