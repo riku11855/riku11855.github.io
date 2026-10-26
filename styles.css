@@ -46,7 +46,7 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--point); outline
 .site-header nav a:hover { color: var(--text); }
 
 /* common */
-.eyebrow { color: var(--point); font-size: 14px; letter-spacing: .5px; margin-bottom: 14px; }
+.eyebrow { color: var(--point); font-size: 18px; font-weight: 600; letter-spacing: .5px; margin-bottom: 14px; }
 .actions { display: flex; flex-wrap: wrap; gap: 10px; }
 .btn { display: inline-flex; align-items: center; gap: 8px; min-height: 46px; padding: 0 20px; border: 1px solid var(--line); color: var(--text); font-size: 15px; transition: border-color .2s, background .2s; }
 .btn:hover { border-color: var(--muted); }
@@ -878,7 +878,7 @@ html, body { overflow-x: clip; }
 .timeline::before { bottom: 0; background: var(--line); }
 .timeline::after { height: calc((100% - 32px) * var(--fill, 0)); background: var(--point); transition: height .1s linear; }
 .timeline li { position: relative; }
-.timeline li::before { content: ""; position: absolute; left: -28px; top: 50%; width: 12px; height: 12px; margin-top: -6px; border-radius: 50%; background: var(--bg); border: 2px solid var(--line); transition: background .3s, border-color .3s; z-index: 1; }
+.timeline li::before { content: ""; position: absolute; left: -28px; top: 33px; box-sizing: border-box; width: 12px; height: 12px; margin-top: -6px; border-radius: 50%; background: var(--bg); border: 2px solid var(--line); transition: background .3s, border-color .3s; z-index: 1; }
 .timeline li.on::before { background: var(--point); border-color: var(--point); }
 
 @media (prefers-reduced-motion: reduce) {
