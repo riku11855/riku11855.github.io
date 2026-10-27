@@ -90,16 +90,35 @@ document.querySelectorAll('.build-btn').forEach((a) => {
 // ===== 스크롤 효과 =====
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-// 1. 지금 보는 섹션을 메뉴에서 강조합니다.
+// 1. 섹션을 탭으로 나눠, 메뉴를 누르면 해당 탭만 보여줍니다.
+const panels = [...document.querySelectorAll('[data-tab]')];
 const navLinks = [...document.querySelectorAll('.site-header nav a[href^="#"]')];
-const navTargets = navLinks.map((a) => document.querySelector(a.getAttribute('href'))).filter(Boolean);
-function markCurrentNav() {
-  const line = window.innerHeight * 0.35;
-  let current = null;
-  navTargets.forEach((sec) => { if (sec.getBoundingClientRect().top <= line) current = sec; });
-  if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4) current = navTargets[navTargets.length - 1];
-  navLinks.forEach((a) => a.classList.toggle('is-current', !!current && a.getAttribute('href') === '#' + current.id));
+function showTab(hash) {
+  const target = (hash && hash.length > 1 && document.getElementById(hash.slice(1))) || panels[0];
+  const panel = target.closest('[data-tab]') || panels[0];
+  panels.forEach((p) => { p.hidden = p !== panel; });
+  navLinks.forEach((a) => {
+    const t = document.querySelector(a.getAttribute('href'));
+    a.classList.toggle('is-current', !!t && panel.contains(t));
+  });
+  // 탭의 첫 섹션이면 맨 위로, 아니면 그 섹션으로 이동합니다.
+  if (target === panel || target === panel.querySelector('section')) {
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  } else {
+    target.scrollIntoView({ behavior: 'instant' });
+  }
+  onScroll();
 }
+document.querySelectorAll('a[href^="#"]').forEach((a) => {
+  a.addEventListener('click', (e) => {
+    const hash = a.getAttribute('href');
+    if (hash === '#' || !document.getElementById(hash.slice(1))) return;
+    e.preventDefault();
+    if (location.hash !== hash) history.pushState(null, '', hash);
+    showTab(hash);
+  });
+});
+window.addEventListener('popstate', () => showTab(location.hash));
 
 // 2. 표지 이미지는 글보다 느리게 움직이고, 내려갈수록 어두워집니다.
 const hero = document.querySelector('.hero');
@@ -128,8 +147,8 @@ let ticking = false;
 function onScroll() {
   if (ticking) return;
   ticking = true;
-  requestAnimationFrame(() => { markCurrentNav(); moveHero(); fillTimeline(); ticking = false; });
+  requestAnimationFrame(() => { moveHero(); fillTimeline(); ticking = false; });
 }
 window.addEventListener('scroll', onScroll, { passive: true });
 window.addEventListener('resize', onScroll);
-onScroll();
+showTab(location.hash);
