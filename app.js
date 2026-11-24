@@ -1,42 +1,43 @@
-// 작업마다 펼침 패널은 하나만 열립니다.
-document.querySelectorAll('[data-work]').forEach((work) => {
-  const buttons = [...work.querySelectorAll('.step-btn')];
-  buttons.forEach((btn, i) => {
-    btn.addEventListener('click', () => {
-      const open = btn.getAttribute('aria-expanded') === 'true';
-      buttons.forEach((b) => {
-        b.setAttribute('aria-expanded', 'false');
-        document.getElementById(b.getAttribute('aria-controls')).hidden = true;
-      });
-      if (!open) {
-        btn.setAttribute('aria-expanded', 'true');
-        document.getElementById(btn.getAttribute('aria-controls')).hidden = false;
-      }
-    });
-    // 좌우 화살표로 버튼 사이를 이동합니다.
-    btn.addEventListener('keydown', (e) => {
-      if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
-      e.preventDefault();
-      const next = (i + (e.key === 'ArrowRight' ? 1 : -1) + buttons.length) % buttons.length;
-      buttons[next].focus();
-    });
-  });
-});
+// 장식용 요소(마우스 빛, 스크롤 막대)를 붙입니다.
+const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const bar = document.createElement('div');
+bar.className = 'progress';
+document.body.prepend(bar);
+const topBar = document.querySelector('.top');
+const heroImg = document.querySelector('.hero-bg img');
 
-// 스크롤하면 섹션이 차례로 나타납니다.
-const reveals = document.querySelectorAll('.reveal');
-if ('IntersectionObserver' in window) {
+// 1. 지금 보는 섹션을 메뉴에서 강조하고, 진행 막대를 채웁니다.
+const navLinks = [...document.querySelectorAll('.menu a')];
+const targets = navLinks.map((a) => document.querySelector(a.getAttribute('href'))).filter(Boolean);
+function onScroll() {
+  const line = window.innerHeight * 0.4;
+  let current = null;
+  targets.forEach((sec) => { if (sec.getBoundingClientRect().top <= line) current = sec; });
+  if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4) current = targets[targets.length - 1];
+  navLinks.forEach((a) => a.classList.toggle('on', !!current && a.getAttribute('href') === '#' + current.id));
+  const max = document.documentElement.scrollHeight - window.innerHeight;
+  bar.style.setProperty('--p', max > 0 ? (window.scrollY / max).toFixed(4) : 0);
+  topBar.classList.toggle('solid', window.scrollY > 40);
+  // 첫 화면 배경은 글보다 느리게 움직입니다.
+  if (heroImg && !reduceMotion && window.scrollY < window.innerHeight) heroImg.style.transform = `translateY(${window.scrollY * 0.3}px) scale(1.06)`;
+}
+let ticking = false;
+window.addEventListener('scroll', () => {
+  if (ticking) return;
+  ticking = true;
+  requestAnimationFrame(() => { onScroll(); ticking = false; });
+}, { passive: true });
+onScroll();
+
+// 2. 항목이 화면에 들어오면 아래에서 떠오릅니다.
+const rises = document.querySelectorAll('.rise');
+if ('IntersectionObserver' in window && !reduceMotion) {
   const io = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('in');
-        io.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.12 });
-  reveals.forEach((el) => io.observe(el));
+    entries.forEach((en) => { if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } });
+  }, { rootMargin: '0px 0px -8% 0px' });
+  rises.forEach((el) => io.observe(el));
 } else {
-  reveals.forEach((el) => el.classList.add('in'));
+  rises.forEach((el) => el.classList.add('in'));
 }
 
 // 이메일 주소 복사
@@ -57,11 +58,7 @@ const modal = document.querySelector('.video-modal');
 const frame = modal?.querySelector('.video-frame');
 document.querySelectorAll('.video-btn').forEach((btn) => {
   const id = btn.dataset.youtube;
-  if (!id) {
-    btn.disabled = true;
-    btn.textContent = '영상 준비 중';
-    return;
-  }
+  if (!id) { btn.disabled = true; btn.textContent = '영상 준비 중'; return; }
   btn.addEventListener('click', () => {
     const iframe = document.createElement('iframe');
     iframe.src = `https://www.youtube-nocookie.com/embed/${encodeURIComponent(id)}?autoplay=1&rel=0`;
@@ -78,58 +75,9 @@ modal?.addEventListener('close', () => frame.replaceChildren());
 
 // 빌드 다운로드 주소가 없으면 준비 중으로 표시합니다.
 document.querySelectorAll('.build-btn').forEach((a) => {
-  if (a.dataset.href) {
-    a.href = a.dataset.href;
-  } else {
+  if (a.dataset.href) { a.href = a.dataset.href; } else {
     a.classList.add('is-pending');
     a.setAttribute('aria-disabled', 'true');
     a.textContent = '빌드 준비 중';
   }
 });
-
-// ===== 스크롤 효과 =====
-const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-// 1. 지금 보는 섹션을 메뉴에서 강조합니다.
-const navLinks = [...document.querySelectorAll('.site-header nav a[href^="#"]')];
-const navTargets = navLinks.map((a) => document.querySelector(a.getAttribute('href'))).filter(Boolean);
-function markCurrentNav() {
-  const line = window.innerHeight * 0.35;
-  let current = null;
-  navTargets.forEach((sec) => { if (sec.getBoundingClientRect().top <= line) current = sec; });
-  if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4) current = navTargets[navTargets.length - 1];
-  navLinks.forEach((a) => a.classList.toggle('is-current', !!current && a.getAttribute('href') === '#' + current.id));
-}
-
-// 2. 표지 이미지는 글보다 느리게 움직이고, 내려갈수록 어두워집니다.
-const hero = document.querySelector('.hero');
-const heroImg = hero?.querySelector('.hero-slot img');
-function moveHero() {
-  if (!hero || !heroImg || reduceMotion) return;
-  const h = hero.offsetHeight || 1;
-  const y = Math.min(Math.max(window.scrollY, 0), h);
-  heroImg.style.transform = `translateY(${y * 0.3}px) scale(1.06)`;
-  hero.style.setProperty('--hero-dim', (y / h * 0.6).toFixed(3));
-}
-
-// 4. 이력 선이 스크롤을 따라 채워지고, 지나간 항목이 켜집니다.
-const timeline = document.querySelector('.timeline');
-const timelineItems = timeline ? [...timeline.querySelectorAll('li')] : [];
-function fillTimeline() {
-  if (!timeline) return;
-  const r = timeline.getBoundingClientRect();
-  const line = window.innerHeight * 0.7;
-  const p = Math.min(Math.max((line - r.top) / (r.height || 1), 0), 1);
-  timeline.style.setProperty('--fill', p.toFixed(3));
-  timelineItems.forEach((li) => li.classList.toggle('on', li.getBoundingClientRect().top + 12 <= line));
-}
-
-let ticking = false;
-function onScroll() {
-  if (ticking) return;
-  ticking = true;
-  requestAnimationFrame(() => { markCurrentNav(); moveHero(); fillTimeline(); ticking = false; });
-}
-window.addEventListener('scroll', onScroll, { passive: true });
-window.addEventListener('resize', onScroll);
-onScroll();
